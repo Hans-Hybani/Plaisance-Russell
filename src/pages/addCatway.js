@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import axios from 'axios';
 import "../style/home_style.css"
 import { Link } from "react-router-dom";
 
@@ -22,15 +21,21 @@ function AddCatway(props) {
         };
 
         try {
-            const response = await axios.post('https://api-port-plaisance-rusell.vercel.app/api/catway', formData);
+            const response = await fetch('https://express-plaisance-api.vercel.app/api/catway', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
 
             if (response.status === 201) {
                 console.log('done')
                 window.location.href = '/Dashboard';
             } else {
-                setErrorMessage('An error occurred. Please try again.');
-                console.error('Erreur lors de l\'ajout du catway:', response.data.error.message);
-                
+                const data = await response.json();
+                setErrorMessage('Une erreur s\'est produite. Veuillez réessayer.');
+                console.error('Erreur lors de l\'ajout du catway:', data.error.message);
             }
         } catch (error) {
             console.error('Erreur lors de la requête:', error);
@@ -40,7 +45,7 @@ function AddCatway(props) {
     return (
         <div>
             <section className="section__connexion">
-                <h2>Inscrivez-vous !</h2>
+                <h2>Ajouter un Catway</h2>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formCatwayNumber">
                         <Form.Label>Numéro de Catway</Form.Label>
@@ -62,16 +67,16 @@ function AddCatway(props) {
                     </Form.Group>
 
                     <Button variant="primary" type="submit">
-                        Inscription
+                        Ajouter le Catway
                     </Button>
 
                     {errorMessage && <p className="text-danger">{errorMessage}</p>}
                 </Form>
             </section>
             <section className="add__user_dah">
-                    <Link to="/Dashboard">
-                        <button>Dashboard</button>
-                    </Link>
+                <Link to="/Dashboard">
+                    <button>Dashboard</button>
+                </Link>
             </section>
         </div>
     );

@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import axios from 'axios';
 import '../style/updateUser.css'
 import { Link } from 'react-router-dom';
-
 
 function UpdateUser(props) {
     const location = useLocation();
@@ -26,8 +24,9 @@ function UpdateUser(props) {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('https://api-port-plaisance-rusell.vercel.app/api/users');
-            setUsers(response.data);
+            const response = await fetch('https://express-plaisance-api.vercel.app/api/users');
+            const data = await response.json();
+            setUsers(data);
         } catch (error) {
             console.error('Error fetching users:', error);
         }
@@ -40,12 +39,18 @@ function UpdateUser(props) {
         }
 
         try {
-            await axios.put(`https://api-port-plaisance-rusell.vercel.app/api/user/${selectedUserId}`, editedUserData);
+            await fetch(`https://express-plaisance-api.vercel.app/api/user/${selectedUserId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(editedUserData),
+            });
             fetchData();
             setEditedUserData({ name: '', email: '', password: '' });
             setSelectedUserId('');
             setSelectedUserMessage('');
-            window.location.replace('/Dashboard');
+            window.location.href = '/Dashboard';
         } catch (error) {
             console.error('Error updating user:', error);
         }

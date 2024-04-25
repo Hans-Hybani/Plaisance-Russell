@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import axios from 'axios';
 import '../style/updateUser.css';
 
 function UpdateCatway(props) {
@@ -24,8 +23,9 @@ function UpdateCatway(props) {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get('https://api-port-plaisance-rusell.vercel.app/api/catways');
-            setCatways(response.data);
+            const response = await fetch('https://express-plaisance-api.vercel.app/api/catways');
+            const data = await response.json();
+            setCatways(data);
         } catch (error) {
             console.error('Error fetching catways:', error);
         }
@@ -38,7 +38,13 @@ function UpdateCatway(props) {
         }
 
         try {
-            await axios.put(`https://api-port-plaisance-rusell.vercel.app/api/catway/${selectedCatwayId}`, editedCatwayData);
+            await fetch(`https://express-plaisance-api.vercel.app/api/catway/${selectedCatwayId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(editedCatwayData),
+            });
             fetchData();
             setEditedCatwayData({ catwayNumber: '', catwayState: '', type: '' });
             setSelectedCatwayId('');

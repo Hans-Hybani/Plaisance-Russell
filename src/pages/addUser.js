@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../style/home_style.css"
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import axios from 'axios'; 
 import { Link } from "react-router-dom";
 
 function AddUser(props) {
@@ -22,14 +21,21 @@ function AddUser(props) {
         };
 
         try {
-            const response = await axios.post('https://api-port-plaisance-rusell.vercel.app/signup', formData);
+            const response = await fetch('https://express-plaisance-api.vercel.app/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
 
             if (response.status === 201) {
                 console.log('done')
                 window.location.href = '/Dashboard';
             } else {
-                setErrorMessage('An error occurred. Please try again.');
-                console.error('Erreur lors de l\'inscription:', response.data.error);
+                const data = await response.json();
+                setErrorMessage('Une erreur s\'est produite. Veuillez réessayer.');
+                console.error('Erreur lors de l\'inscription:', data.error);
             }
         } catch (error) {
             console.error('Erreur lors de la requête:', error);
