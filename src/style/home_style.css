@@ -1,0 +1,39 @@
+
+.section__titre{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 50px;
+        padding-bottom: 50px;
+}
+
+.section__titre h1{
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        width: 100%;
+}
+
+.section__connexion{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+        background-color: #f0f3f7;
+        padding-top: 20px;
+        padding-bottom: 20px;
+}
+
+.section__connexion h2{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+}
+.section__connexion form{
+        width: 50%;
+}
+
+.section__documentation{
+        display: flex;
+        justify-content: center;
+}

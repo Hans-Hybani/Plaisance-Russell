@@ -1,0 +1,23 @@
+form{
+        margin-top: 20px;
+        margin-bottom: 30px;
+}
+.user-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.user-list li {
+    margin-bottom: 10px;
+    cursor: pointer;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.user-list li:hover {
+    background-color: #e0e0e0;
+}
