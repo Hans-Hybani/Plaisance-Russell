@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from 'react-router-dom';
+import { useLocation} from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import '../style/updateUser.css'
 import { Link } from 'react-router-dom';
 
-function UpdateUser(props) {
+function UpdateUser() {
     const location = useLocation();
     const [editedUserData, setEditedUserData] = useState({ name: '', email: '', password: '' });
     const [selectedUserId, setSelectedUserId] = useState('');
@@ -24,7 +24,7 @@ function UpdateUser(props) {
 
     const fetchData = async () => {
         try {
-            const response = await fetch('https://express-plaisance-api.vercel.app/api/users');
+            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/api/users');
             const data = await response.json();
             setUsers(data);
         } catch (error) {
@@ -32,12 +32,13 @@ function UpdateUser(props) {
         }
     };
 
-    const updateUser = async () => {
+    const updateUser = async (e) => {
+        e.preventDefault();
         if (!selectedUserId) {
             setSelectedUserMessage('Veuillez sélectionner un utilisateur.');
             return;
         }
-
+    
         try {
             await fetch(`https://express-plaisance-api.vercel.app/api/user/${selectedUserId}`, {
                 method: 'PUT',
@@ -54,7 +55,7 @@ function UpdateUser(props) {
         } catch (error) {
             console.error('Error updating user:', error);
         }
-    };
+    };    
 
     const handleUserSelection = (userId) => {
         setSelectedUserId(userId);
@@ -65,7 +66,7 @@ function UpdateUser(props) {
 
     return (
         <div>
-                <h2>Modifier un utilisateur</h2>
+            <h2>Modifier un utilisateur</h2>
             <section className="section__connexion">
                 <Form onSubmit={updateUser}>
                     <Form.Group className="mb-3" controlId="formBasicName">

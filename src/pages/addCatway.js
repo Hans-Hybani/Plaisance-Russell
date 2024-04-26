@@ -21,7 +21,7 @@ function AddCatway(props) {
         };
 
         try {
-            const response = await fetch('https://express-plaisance-api.vercel.app/api/catway', {
+            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/api/catway', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
