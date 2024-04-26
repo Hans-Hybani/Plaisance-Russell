@@ -23,7 +23,7 @@ function UpdateCatway(props) {
 
     const fetchData = async () => {
         try {
-            const response = await fetch('https://express-plaisance-api.vercel.app/api/catways');
+            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/api/catways');
             const data = await response.json();
             setCatways(data);
         } catch (error) {
@@ -38,7 +38,7 @@ function UpdateCatway(props) {
         }
 
         try {
-            await fetch(`https://express-plaisance-api.vercel.app/api/catway/${selectedCatwayId}`, {
+            await fetch(`https://express-api-port-plaisance-russell.onrender.com/api/catway/${selectedCatwayId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

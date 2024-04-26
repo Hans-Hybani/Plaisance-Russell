@@ -12,7 +12,7 @@ function Dashboard(params) {
 
     const fetchData = async () => {
         try {
-            const response = await fetch('https://api-port-plaisance-rusell.vercel.app/api/users');
+            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/api/users');
             if (!response.ok) {
                 throw new Error('Error fetching users');
             }
@@ -25,7 +25,7 @@ function Dashboard(params) {
 
     const deleteUser = async (userId) => {
         try {
-            await fetch(`https://api-port-plaisance-rusell.vercel.app/api/user/${userId}`, {
+            await fetch(`https://express-api-port-plaisance-russell.onrender.com/api/user/${userId}`, {
                 method: 'DELETE'
             });
             fetchData();
@@ -43,7 +43,7 @@ function Dashboard(params) {
 
     const fetchDataCatways = async () => {
         try {
-            const response = await fetch('https://api-port-plaisance-rusell.vercel.app/api/catways');
+            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/api/catways');
             if (!response.ok) {
                 throw new Error('Error fetching catways');
             }
@@ -56,7 +56,7 @@ function Dashboard(params) {
 
     const deleteCatway = async (catwayId) => {
         try {
-            await fetch(`https://api-port-plaisance-rusell.vercel.app/api/catway/${catwayId}`, {
+            await fetch(`https://express-api-port-plaisance-russell.onrender.com/api/catway/${catwayId}`, {
                 method: 'DELETE'
             });
             fetchDataCatways();
@@ -74,7 +74,7 @@ function Dashboard(params) {
 
     const fetchDataReservations = async () => {
         try {
-            const response = await fetch('https://express-plaisance-api.vercel.app/api/reservations');
+            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/api/reservations');
             if (!response.ok) {
                 throw new Error('Error fetching reservations');
             }
@@ -87,7 +87,7 @@ function Dashboard(params) {
 
     const deleteReservation = async (catwayId, reservationId) => {
         try {
-            await fetch(`https://express-plaisance-api.vercel.app/api/catway/${catwayId}/reservations/${reservationId}`, {
+            await fetch(`https://express-api-port-plaisance-russell.onrender.com/api/catway/${catwayId}/reservations/${reservationId}`, {
                 method: 'DELETE'
             });
             fetchDataReservations();

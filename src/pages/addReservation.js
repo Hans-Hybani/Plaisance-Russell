@@ -25,7 +25,7 @@ function AddReservation(props) {
         };
 
         try {
-            const response = await fetch('https://express-plaisance-api.vercel.app/api/reservation', {
+            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/api/reservation', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

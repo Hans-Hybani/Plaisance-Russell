@@ -21,7 +21,7 @@ function Inscription(props) {
         };
 
         try {
-            const response = await fetch('https://express-plaisance-api.vercel.app/signup', {
+            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
