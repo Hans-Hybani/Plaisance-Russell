@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import '../style/dashboard.css'
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import { Link } from 'react-router-dom';
 
 function Dashboard(params) {
@@ -35,67 +37,79 @@ function Dashboard(params) {
     };
 
     // Catway
-    const [catways, setCatways] = useState([]);
+    const [catwayNumber, setCatwayNumber] = useState('');
+    const [catwayState, setCatwayState] = useState('');
+    const [type, setType] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
-    useEffect(() => {
-        fetchDataCatways();
-    }, []);
+    const handleSubmit = async (e) => {
+        e.preventDefault(); 
 
-    const fetchDataCatways = async () => {
+        const formData = {
+            catwayNumber: catwayNumber,
+            catwayState: catwayState,
+            type: type
+        };
+
         try {
-            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/api/catways');
-            if (!response.ok) {
-                throw new Error('Error fetching catways');
-            }
-            const data = await response.json();
-            setCatways(data);
-        } catch (error) {
-            console.error('Error fetching catways:', error);
-        }
-    };
-
-    const deleteCatway = async (catwayId) => {
-        try {
-            await fetch(`https://express-api-port-plaisance-russell.onrender.com/api/catway/${catwayId}`, {
-                method: 'DELETE'
+            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/api/catway', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
             });
-            fetchDataCatways();
+
+            if (response.status === 201) {
+                console.log('done')
+            } else {
+                const data = await response.json();
+                setErrorMessage('Une erreur s\'est produite. Veuillez réessayer.');
+                console.error('Erreur lors de l\'ajout du catway:', data.error.message);
+            }
         } catch (error) {
-            console.error('Error deleting catway:', error);
+            console.error('Erreur lors de la requête:', error);
         }
     };
 
     // Reservation
-    const [reservations, setReservations] = useState([]);
+    const [clientName, setClientName] = useState('');
+    const [boatName, setBoatName] = useState('');
+    const [checkIn, setCheckIn] = useState('');
+    const [checkOut, setCheckOut] = useState('');
 
-    useEffect(() => {
-        fetchDataReservations();
-    }, []);
+    const handleSubmitRese = async (e) => {
+        e.preventDefault(); 
 
-    const fetchDataReservations = async () => {
+        const formData = {
+            catwayNumber: catwayNumber,
+            clientName: clientName,
+            boatName: boatName,
+            CheckIn: checkIn,
+            CheckOut: checkOut
+        };
+
         try {
-            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/api/reservations');
-            if (!response.ok) {
-                throw new Error('Error fetching reservations');
-            }
-            const data = await response.json();
-            setReservations(data);
-        } catch (error) {
-            console.error('Error fetching reservations:', error);
-        }
-    };
-
-    const deleteReservation = async (catwayId, reservationId) => {
-        try {
-            await fetch(`https://express-api-port-plaisance-russell.onrender.com/api/catway/${catwayId}/reservations/${reservationId}`, {
-                method: 'DELETE'
+            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/api/reservation', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
             });
-            fetchDataReservations();
+
+            if (response.status === 201) {
+                console.log('done')
+            } else {
+                const data = await response.json();
+                setErrorMessage('Une erreur s\'est produite. Veuillez réessayer.');
+                console.error('Erreur lors de l\'ajout de la réservation:', data.error);
+            }
         } catch (error) {
-            console.error('Erreur lors de la suppression de la réservation:', error);
+            console.error('Erreur lors de la requête:', error);
         }
     };
-
+    
     return(
         <div>
             <h1> TABLEAU DE BORD </h1>
@@ -137,75 +151,84 @@ function Dashboard(params) {
                 </Link>
             </section>
 
-            <section className="tab__section">
-                <h2>Catways</h2>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th>Cateway Number</th>
-                            <th>Cateway State</th>
-                            <th>Type</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {catways.map(catway => (
-                            <tr key={catway.id}>
-                                <td>{catway.catwayNumber}</td>
-                                <td>{catway.catwayState}</td>
-                                <td>{catway.type}</td>
-                                <td>
-                                    <button className="sup" onClick={() => deleteCatway(catway._id)}>Supprimer</button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+            <section className="section__connexion">
+                <h2>Ajouter un Catway</h2>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group className="mb-3" controlId="formCatwayNumber">
+                        <Form.Label>Numéro de Catway</Form.Label>
+                        <Form.Control type="number" placeholder="Entrez le numéro de catway" value={catwayNumber} onChange={(e) => setCatwayNumber(e.target.value)} />
+                    </Form.Group>
 
-                <Link to="/UpdateCatway">
-                    <button className="mod">Modifier un catway</button>
-                </Link>
+                    <Form.Group className="mb-3" controlId="formCatwayState">
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control type="text" placeholder="Entrez l'état du catway" value={catwayState} onChange={(e) => setCatwayState(e.target.value)} />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formCatwayType">
+                        <Form.Label>Type de Catway</Form.Label>
+                        <Form.Control as="select" value={type} onChange={(e) => setType(e.target.value)}>
+                            <option value="">Sélectionnez le type de catway</option>
+                            <option value="long">Long</option>
+                            <option value="short">Court</option>
+                        </Form.Control>
+                    </Form.Group>
+
+                    <Button variant="primary" type="submit">
+                        Ajouter le Catway
+                    </Button>
+
+                    {errorMessage && <p className="text-danger">{errorMessage}</p>}
+                </Form>
             </section>
 
             <section className="add__user_dah">
-                <Link to="/addCatway">
-                    <button>Creer un catway</button>
+                <Link to="/Catways">
+                    <button>Voir les catways</button>
                 </Link>
             </section>
 
-            <section className="tab__section">
-                <h2>Reservation</h2>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th>Cateway Number</th>
-                            <th>Client Name</th>
-                            <th>Boat Name</th>
-                            <th>CheckIn</th>
-                            <th>CheckOut</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {reservations.map(reservation => (
-                            <tr key={reservation.id}>
-                                <td>{reservation.catwayNumber}</td>
-                                <td>{reservation.clientName}</td>
-                                <td>{reservation.boatName}</td>
-                                <td>{reservation.CheckIn}</td>
-                                <td>{reservation.CheckOut}</td>
-                                <td>
-                                    <button className="sup" onClick={() => deleteReservation(reservation.catwayId, reservation._id)}>Supprimer</button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </section>
+            <section className="section__connexion">
+                <h2>Ajouter une réservation</h2>
+                <Form onSubmit={handleSubmitRese}>
+                    <Form.Group className="mb-3" controlId="formCatwayNumber">
+                        <Form.Label>Numéro de Catway</Form.Label>
+                        <Form.Control type="number" placeholder="Entrez le numéro de catway" value={catwayNumber} onChange={(e) => setCatwayNumber(e.target.value)} />
+                    </Form.Group>
 
+                    <Form.Group className="mb-3" controlId="formClientName">
+                        <Form.Label>Nom du client</Form.Label>
+                        <Form.Control type="text" placeholder="Entrez le nom du client" value={clientName} onChange={(e) => setClientName(e.target.value)} />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formBoatName">
+                        <Form.Label>Nom du bateau</Form.Label>
+                        <Form.Control type="text" placeholder="Entrez le nom du bateau" value={boatName} onChange={(e) => setBoatName(e.target.value)} />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formCheckIn">
+                        <Form.Label>Date d'arrivée</Form.Label>
+                        <Form.Control type="date" value={checkIn} onChange={(e) => setCheckIn(e.target.value)} />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formCheckOut">
+                        <Form.Label>Date de départ</Form.Label>
+                        <Form.Control type="date" value={checkOut} onChange={(e) => setCheckOut(e.target.value)} />
+                    </Form.Group>
+
+                    <Button variant="primary" type="submit">
+                        Ajouter la réservation
+                    </Button>
+
+                    {errorMessage && <p className="text-danger">{errorMessage}</p>}
+                </Form>
+            </section>
+            
             <section className="add__user_dah">
-                <Link to="/addReservation">
-                    <button>Creer une réservation</button>
+                <Link to="/Reservations">
+                    <button>Voir les réservations</button>
                 </Link>
             </section>
+
         </div>
     )
 }

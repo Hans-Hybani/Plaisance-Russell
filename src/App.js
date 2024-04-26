@@ -5,7 +5,7 @@ import Dashboard from "./pages/dashboard";
 import Documentation from "./pages/documentation";
 import Catways from "./pages/catways";
 import Cataway from "./pages/catway";
-import Reservations from "./pages/reservation";
+import Reservations from "./pages/reservations";
 import Reservation from "./pages/reservation";
 import AddUser from "./pages/addUser";
 import UpdateUser from "./pages/updateUser";

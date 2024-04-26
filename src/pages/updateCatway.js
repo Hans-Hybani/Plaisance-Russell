@@ -75,8 +75,8 @@ function UpdateCatway(props) {
                         Modifier le catway
                     </Button>
                     <section className="add__user_dah large">
-                        <Link to="/Dashboard">
-                            <button>Retour au tableau de bord</button>
+                        <Link to="/Catways">
+                            <button>Retour aux catways</button>
                         </Link>
                     </section>
 
