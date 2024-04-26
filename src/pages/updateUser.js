@@ -51,7 +51,6 @@ function UpdateUser() {
             setEditedUserData({ name: '', email: '', password: '' });
             setSelectedUserId('');
             setSelectedUserMessage('');
-            window.location.href = '/Dashboard';
         } catch (error) {
             console.error('Error updating user:', error);
         }

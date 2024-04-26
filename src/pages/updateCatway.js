@@ -49,7 +49,6 @@ function UpdateCatway(props) {
             setEditedCatwayData({ catwayNumber: '', catwayState: '', type: '' });
             setSelectedCatwayId('');
             setSelectedCatwayMessage('');
-            window.location.href = '/Dashboard';
         } catch (error) {
             console.error('Error updating catway:', error);
         }
