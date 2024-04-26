@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import '../style/updateUser.css';
+import '../style/updateUser.css'
 
 function UpdateCatway(props) {
     const location = useLocation();
@@ -31,7 +31,8 @@ function UpdateCatway(props) {
         }
     };
 
-    const updateCatway = async () => {
+    const updateCatway = async (e) => {
+        e.preventDefault();
         if (!selectedCatwayId) {
             setSelectedCatwayMessage('Veuillez sélectionner un catway.');
             return;
@@ -67,7 +68,7 @@ function UpdateCatway(props) {
             <section className="section__connexion">
                 <Form onSubmit={updateCatway}>
                     <Form.Group className="mb-3" controlId="formCatwayState">
-                        <Form.Label>Description</Form.Label>
+                        <Form.Label>État du catway</Form.Label>
                         <Form.Control type="text" placeholder="Entrez l'état du catway" value={editedCatwayData.catwayState} onChange={(e) => setEditedCatwayData({ ...editedCatwayData, catwayState: e.target.value })} />
                     </Form.Group>
                     <Button variant="primary" type="submit">
