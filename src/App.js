@@ -4,9 +4,7 @@ import Inscription from "./pages/inscription";
 import Dashboard from "./pages/dashboard";
 import Documentation from "./pages/documentation";
 import Catways from "./pages/catways";
-import Cataway from "./pages/catway";
 import Reservations from "./pages/reservations";
-import Reservation from "./pages/reservation";
 import AddUser from "./pages/addUser";
 import UpdateUser from "./pages/updateUser";
 import UpdateCatway from "./pages/updateCatway";
@@ -24,9 +22,7 @@ function App() {
           <Route path="/Inscription" element={<Inscription/>}/>
           <Route path="/Documentation" element={<Documentation/>}/>
           <Route path="/Catways" element={<Catways/>}/>
-          <Route path="/Cataway" element={<Cataway/>}/>
           <Route path="/Reservations" element={<Reservations/>}/>
-          <Route path="/Reservation" element={<Reservation/>}/>
           <Route path="/AddUser" element={<AddUser/>}/>
           <Route path="/UpdateUser" element={<UpdateUser/>}/>
           <Route path="/UpdateCatway" element={<UpdateCatway/>}/>

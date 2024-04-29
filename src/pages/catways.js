@@ -36,13 +36,14 @@ function Catways(params) {
         return(
                 <div>
                         <section className="tab__section">
+                                <h2>Catways</h2>
+
                                 <section className="add__user_dah">
                                         <Link to="/Dashboard">
                                                 <button>Dashboard</button>
                                         </Link>
                                 </section>
-                                
-                                <h2>Catways</h2>
+
                                 <table className="table">
                                         <thead>
                                                 <tr>
@@ -58,7 +59,7 @@ function Catways(params) {
                                                         <td>{catway.catwayState}</td>
                                                         <td>{catway.type}</td>
                                                         <td>
-                                                        <button className="sup" onClick={() => deleteCatway(catway._id)}>Supprimer</button>
+                                                                <button className="sup" onClick={() => deleteCatway(catway._id)}>Supprimer</button>
                                                         </td>
                                                 </tr>
                                                 ))}

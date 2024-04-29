@@ -25,9 +25,10 @@ function Dashboard(params) {
         }
     };
 
+    // j'ai fait des modifications ici !!
     const deleteUser = async (userId) => {
         try {
-            await fetch(`https://express-api-port-plaisance-russell.onrender.com/api/user/${userId}`, {
+            await fetch(`http://localhost:3001/api/user/${userId}`, {
                 method: 'DELETE'
             });
             fetchData();
