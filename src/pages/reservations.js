@@ -9,12 +9,28 @@ function Reservations(params) {
         fetchDataReservations();
     }, []);
 
-    const fetchDataReservations = async () => {
+const fetchDataReservations = async () => {
         try {
-            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/api/reservations');
+            // Récupérer le token JWT du sessionStorage
+            const token = sessionStorage.getItem('token');
+    
+            // Vérifier si le token JWT existe
+            if (!token) {
+                // Rediriger vers la page de connexion s'il n'y a pas de token
+                window.location.href = '/AuthentificationReservation';
+                return; // Arrêter l'exécution de la fonction
+            }
+    
+            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/api/reservations', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+    
             if (!response.ok) {
                 throw new Error('Error fetching reservations');
             }
+    
             const data = await response.json();
             setReservations(data);
         } catch (error) {
@@ -24,9 +40,25 @@ function Reservations(params) {
 
     const deleteReservation = async (catwayId, reservationId) => {
         try {
+            // Récupérer le token JWT du sessionStorage
+            const token = sessionStorage.getItem('token');
+            
+            // Vérifier si le token JWT existe
+            if (!token) {
+                // Rediriger vers la page de connexion s'il n'y a pas de token
+                window.location.href = '/AuthentificationReservation';
+                return; // Arrêter l'exécution de la fonction
+            }
+    
+            // Envoyer la requête DELETE avec le token JWT dans le header Authorization
             await fetch(`https://express-api-port-plaisance-russell.onrender.com/api/catway/${catwayId}/reservations/${reservationId}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             });
+    
+            // Mettre à jour les données après la suppression de la réservation
             fetchDataReservations();
         } catch (error) {
             console.error('Erreur lors de la suppression de la réservation:', error);
@@ -66,11 +98,6 @@ function Reservations(params) {
                                                 ))}
                                         </tbody>
                                 </table>
-                        </section>
-                        <section className="add__user_dah">
-                                <Link to="/addReservation">
-                                        <button>Creer une réservation</button>
-                                </Link>
                         </section>
                 </div>
         )

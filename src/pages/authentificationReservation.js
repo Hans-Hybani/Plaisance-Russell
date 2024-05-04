@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import "../style/home_style.css";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { Link } from 'react-router-dom';
 
-function Home(params) {
+function AuthentificationReservation(params) {
 
         const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');
@@ -17,7 +16,7 @@ function Home(params) {
         const handlePasswordChange = (e) => {
             setPassword(e.target.value);
         };
-        
+    
         const handleSubmit = async (event) => {
                 event.preventDefault();
             
@@ -46,7 +45,7 @@ function Home(params) {
             
                     // Rediriger vers la page de tableau de bord après connexion réussie
                     // Remplacez '/dashboard' par l'URL de votre page de tableau de bord
-                    window.location.href = '/dashboard';
+                    window.location.href = '/Reservations';
                 } catch (error) {
                     console.error('Error logging in:', error);
                     setErrorMessage('Erreur de connexion. Veuillez vérifier vos informations d\'identification.');
@@ -55,13 +54,8 @@ function Home(params) {
 
         return(
                 <div>
-                        <section className="section__titre">
-                                <h1>PORT PLAISANCE RUSELL</h1>
-                                <p>Loerm ipsum dolor sit amen</p>
-                        </section>
-
                         <section className="section__connexion">
-                                <h2>Veuillez vous connecter !</h2>
+                                <h2>Veuillez vous authentifiez !</h2>
                                         <Form onSubmit={handleSubmit}>
                                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                                         <Form.Label>Email address</Form.Label>
@@ -79,20 +73,12 @@ function Home(params) {
                                                 <Button variant="primary" type="submit">
                                                         Connexion
                                                 </Button>
-                                                <Link to="/Inscription">
-                                                        Inscription
-                                                </Link>
 
                                                 {errorMessage && <p className="text-danger">{errorMessage}</p>}
                                         </Form>
                         </section>
-
-                        <section className="section__documentation">
-                                <h3>Lire la documentation</h3>
-                                <link/>
-                        </section>
-s                </div>
+                </div>
         );
 }
 
-export default Home;
+export default AuthentificationReservation;
