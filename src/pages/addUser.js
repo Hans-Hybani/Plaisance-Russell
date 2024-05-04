@@ -13,22 +13,33 @@ function AddUser(props) {
 
     const handleSubmit = async (e) => {
         e.preventDefault(); 
-
+    
         const formData = {
             name: name,
             email: email,
             password: password
         };
-
+    
         try {
-            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/signup', {
+            // Récupérer le token JWT du sessionStorage
+            const token = sessionStorage.getItem('token');
+            
+            // Vérifier si le token JWT existe
+            if (!token) {
+                // Rediriger vers la page de connexion s'il n'y a pas de token
+                window.location.href = '/AuthentificationAddUser';
+                return; // Arrêter l'exécution de la fonction
+            }
+    
+            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/AddUser', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Ajouter le token JWT dans le header Authorization
                 },
                 body: JSON.stringify(formData),
             });
-
+    
             if (response.status === 201) {
                 console.log('done')
                 window.location.href = '/Dashboard';

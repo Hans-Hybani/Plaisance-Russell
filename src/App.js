@@ -4,14 +4,14 @@ import Inscription from "./pages/inscription";
 import Dashboard from "./pages/dashboard";
 import Documentation from "./pages/documentation";
 import Catways from "./pages/catways";
-import Cataway from "./pages/catway";
 import Reservations from "./pages/reservations";
-import Reservation from "./pages/reservation";
 import AddUser from "./pages/addUser";
 import UpdateUser from "./pages/updateUser";
 import UpdateCatway from "./pages/updateCatway";
-import AddCatway from "./pages/addCatway";
-import AddReservation from "./pages/addReservation";
+import AuthentificationUser from "./pages/authentificationUser";
+import AuthentificationAddUser from "./pages/authentificationAddUser";
+import AuthentificationCatwaysD from "./pages/authentificationCatwaysD";
+import AuthentificationReservation from "./pages/authentificationReservation";
 
 function App() {
   return (
@@ -24,14 +24,14 @@ function App() {
           <Route path="/Inscription" element={<Inscription/>}/>
           <Route path="/Documentation" element={<Documentation/>}/>
           <Route path="/Catways" element={<Catways/>}/>
-          <Route path="/Cataway" element={<Cataway/>}/>
           <Route path="/Reservations" element={<Reservations/>}/>
-          <Route path="/Reservation" element={<Reservation/>}/>
           <Route path="/AddUser" element={<AddUser/>}/>
           <Route path="/UpdateUser" element={<UpdateUser/>}/>
           <Route path="/UpdateCatway" element={<UpdateCatway/>}/>
-          <Route path="/AddCatway" element={<AddCatway/>}/>
-          <Route path="/AddReservation" element={<AddReservation/>}/>
+          <Route path="/AuthentificationUser" element={<AuthentificationUser/>}/>
+          <Route path="/AuthentificationAddUser" element={<AuthentificationAddUser/>}/>
+          <Route path="/AuthentificationCatwaysD" element={<AuthentificationCatwaysD/>}/>
+          <Route path="/AuthentificationReservation" element={<AuthentificationReservation/>}/>
         </Routes>
       </main>
     </div>

@@ -25,16 +25,32 @@ function Dashboard(params) {
         }
     };
 
-    const deleteUser = async (userId) => {
-        try {
-            await fetch(`https://express-api-port-plaisance-russell.onrender.com/api/user/${userId}`, {
-                method: 'DELETE'
-            });
-            fetchData();
-        } catch (error) {
-            console.error('Error deleting user:', error);
+const deleteUser = async (userId) => {
+    try {
+        // Récupérer le token JWT du sessionStorage
+        const token = sessionStorage.getItem('token');
+        
+        // Vérifier si le token JWT existe
+        if (!token) {
+            // Rediriger vers la page de connexion s'il n'y a pas de token
+            window.location.href = '/AuthentificationUser';
+            return; // Arrêter l'exécution de la fonction
         }
-    };
+
+        // Envoyer la requête DELETE avec le token JWT dans le header Authorization
+        await fetch(`https://express-api-port-plaisance-russell.onrender.com/api/user/${userId}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        // Mettre à jour les données après la suppression de l'utilisateur
+        fetchData();
+    } catch (error) {
+        console.error('Error deleting user:', error);
+    }
+};
 
     // Catway
     const [catwayNumber, setCatwayNumber] = useState('');
@@ -44,22 +60,33 @@ function Dashboard(params) {
 
     const handleSubmit = async (e) => {
         e.preventDefault(); 
-
+    
         const formData = {
             catwayNumber: catwayNumber,
             catwayState: catwayState,
             type: type
         };
-
+    
         try {
+            // Récupérer le token JWT du sessionStorage
+            const token = sessionStorage.getItem('token');
+            
+            // Vérifier si le token JWT existe
+            if (!token) {
+                // Rediriger vers la page de connexion s'il n'y a pas de token
+                window.location.href = '/authentificationUser';
+                return; // Arrêter l'exécution de la fonction
+            }
+    
             const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/api/catway', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(formData),
             });
-
+    
             if (response.status === 201) {
                 console.log('done')
             } else {
@@ -80,7 +107,7 @@ function Dashboard(params) {
 
     const handleSubmitRese = async (e) => {
         e.preventDefault(); 
-
+    
         const formData = {
             catwayNumber: catwayNumber,
             clientName: clientName,
@@ -88,16 +115,27 @@ function Dashboard(params) {
             CheckIn: checkIn,
             CheckOut: checkOut
         };
-
+    
         try {
+            // Récupérer le token JWT du sessionStorage
+            const token = sessionStorage.getItem('token');
+            
+            // Vérifier si le token JWT existe
+            if (!token) {
+                // Rediriger vers la page de connexion s'il n'y a pas de token
+                window.location.href = '/authentificationUser';
+                return; // Arrêter l'exécution de la fonction
+            }
+    
             const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/api/reservation', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}` // Ajouter le token JWT dans le header Authorization
                 },
                 body: JSON.stringify(formData),
             });
-
+    
             if (response.status === 201) {
                 console.log('done')
             } else {
