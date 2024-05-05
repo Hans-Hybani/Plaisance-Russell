@@ -9,28 +9,12 @@ function Reservations(params) {
         fetchDataReservations();
     }, []);
 
-const fetchDataReservations = async () => {
+    const fetchDataReservations = async () => {
         try {
-            // Récupérer le token JWT du sessionStorage
-            const token = sessionStorage.getItem('token');
-    
-            // Vérifier si le token JWT existe
-            if (!token) {
-                // Rediriger vers la page de connexion s'il n'y a pas de token
-                window.location.href = '/AuthentificationReservation';
-                return; // Arrêter l'exécution de la fonction
-            }
-    
-            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/api/reservations', {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-    
+            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/api/reservations');
             if (!response.ok) {
                 throw new Error('Error fetching reservations');
             }
-    
             const data = await response.json();
             setReservations(data);
         } catch (error) {
@@ -38,7 +22,7 @@ const fetchDataReservations = async () => {
         }
     };
 
-    const deleteReservation = async (catwayId, reservationId) => {
+    const deleteReservation = async (reservationId) => {
         try {
             // Récupérer le token JWT du sessionStorage
             const token = sessionStorage.getItem('token');
@@ -46,18 +30,18 @@ const fetchDataReservations = async () => {
             // Vérifier si le token JWT existe
             if (!token) {
                 // Rediriger vers la page de connexion s'il n'y a pas de token
-                window.location.href = '/AuthentificationReservation';
+                window.location.href = '/login';
                 return; // Arrêter l'exécution de la fonction
             }
     
             // Envoyer la requête DELETE avec le token JWT dans le header Authorization
-            await fetch(`https://express-api-port-plaisance-russell.onrender.com/api/catway/${catwayId}/reservations/${reservationId}`, {
+            await fetch(`https://express-api-port-plaisance-russell.onrender.com/api/reservation/${reservationId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
-    
+            
             // Mettre à jour les données après la suppression de la réservation
             fetchDataReservations();
         } catch (error) {
@@ -92,7 +76,7 @@ const fetchDataReservations = async () => {
                                                         <td>{reservation.CheckIn}</td>
                                                         <td>{reservation.CheckOut}</td>
                                                         <td>
-                                                        <button className="sup" onClick={() => deleteReservation(reservation.catwayId, reservation._id)}>Supprimer</button>
+                                                        <button className="sup" onClick={() => deleteReservation(reservation._id)}>Supprimer</button>
                                                         </td>
                                                 </tr>
                                                 ))}

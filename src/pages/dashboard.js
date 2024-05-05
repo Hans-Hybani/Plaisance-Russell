@@ -56,7 +56,7 @@ const deleteUser = async (userId) => {
     const [catwayNumber, setCatwayNumber] = useState('');
     const [catwayState, setCatwayState] = useState('');
     const [type, setType] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
+    const [errorMessageCat, setErrorMessageCat] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault(); 
@@ -91,7 +91,7 @@ const deleteUser = async (userId) => {
                 console.log('done')
             } else {
                 const data = await response.json();
-                setErrorMessage('Une erreur s\'est produite. Veuillez réessayer.');
+                setErrorMessageCat('Une erreur s\'est produite. Veuillez réessayer.');
                 console.error('Erreur lors de l\'ajout du catway:', data.error.message);
             }
         } catch (error) {
@@ -104,6 +104,7 @@ const deleteUser = async (userId) => {
     const [boatName, setBoatName] = useState('');
     const [checkIn, setCheckIn] = useState('');
     const [checkOut, setCheckOut] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleSubmitRese = async (e) => {
         e.preventDefault(); 
@@ -127,7 +128,7 @@ const deleteUser = async (userId) => {
                 return; // Arrêter l'exécution de la fonction
             }
     
-            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/api/reservation', {
+            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/api/catways/:id/reservations', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -215,7 +216,7 @@ const deleteUser = async (userId) => {
                         Ajouter le Catway
                     </Button>
 
-                    {errorMessage && <p className="text-danger">{errorMessage}</p>}
+                    {errorMessageCat && <p className="text-danger">{errorMessageCat}</p>}
                 </Form>
             </section>
 
