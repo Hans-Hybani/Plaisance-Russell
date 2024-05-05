@@ -30,11 +30,9 @@ function Inscription(props) {
             });
 
             if (response.status === 201) {
-                console.log('done')
                 window.location.href = '/Home';
             } else {
-                setErrorMessage('Une erreur s\'est produite. Veuillez réessayer.');
-                console.error('Erreur lors de l\'inscription:', response.statusText);
+                setErrorMessage('Une erreur s\'est produite lors de l\'inscription. Veuillez réessayer.');
             }
         } catch (error) {
             console.error('Erreur lors de la requête:', error);

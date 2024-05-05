@@ -37,3 +37,11 @@
         display: flex;
         justify-content: center;
 }
+.redirect{
+        margin-left: 20px;
+        padding: 8px;
+        border-radius:5px ;
+        color: #fff;
+        text-decoration: none;
+        background-color: #0d72f6;
+}
