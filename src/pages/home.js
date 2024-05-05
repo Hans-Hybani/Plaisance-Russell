@@ -48,7 +48,6 @@ function Home(params) {
                     // Remplacez '/dashboard' par l'URL de votre page de tableau de bord
                     window.location.href = '/dashboard';
                 } catch (error) {
-                    console.error('Error logging in:', error);
                     setErrorMessage('Erreur de connexion. Veuillez vérifier vos informations d\'identification.');
                 }
             };
@@ -79,7 +78,7 @@ function Home(params) {
                                                 <Button variant="primary" type="submit">
                                                         Connexion
                                                 </Button>
-                                                <Link to="/Inscription">
+                                                <Link className='redirect' to="/Inscription">
                                                         Inscription
                                                 </Link>
 

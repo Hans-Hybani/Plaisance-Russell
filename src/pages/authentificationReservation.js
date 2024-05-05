@@ -55,7 +55,7 @@ function AuthentificationReservation(params) {
         return(
                 <div>
                         <section className="section__connexion">
-                                <h2>Veuillez vous authentifiez !</h2>
+                                <h2>Veuillez vous authentifiez avant de créer une réservation !</h2>
                                         <Form onSubmit={handleSubmit}>
                                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                                         <Form.Label>Email address</Form.Label>
