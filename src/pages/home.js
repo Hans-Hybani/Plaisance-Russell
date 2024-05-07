@@ -56,7 +56,7 @@ function Home(params) {
                 <div>
                         <section className="section__titre">
                                 <h1>PORT PLAISANCE RUSELL</h1>
-                                <p>Loerm ipsum dolor sit amen</p>
+                                <p className='presentation'>Notre application simplifie la gestion des réservations de catways dans notre port de plaisance. Vous pouvez facilement créer, consulter, réserver et gérer vos places d'amarrage en quelques clics. Que vous soyez un marin chevronné ou un plaisancier débutant, notre application vous offre une expérience fluide et intuitive pour planifier vos voyages en mer en toute tranquillité.</p>
                         </section>
 
                         <section className="section__connexion">
@@ -88,7 +88,9 @@ function Home(params) {
 
                         <section className="section__documentation">
                                 <h3>Lire la documentation</h3>
-                                <link/>
+                                <section className="documentation">
+                                        <Link to="/Documentation">Aller vers la documentation</Link>
+                                </section>
                         </section>
 s                </div>
         );

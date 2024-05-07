@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import '../style/updateUser.css'
+import '../style/updateUser.css';
 
-function UpdateCatway(props) {
+function UpdateCatway() {
     const location = useLocation();
     const [editedCatwayData, setEditedCatwayData] = useState({ catwayNumber: '', catwayState: '', type: '' });
     const [selectedCatwayId, setSelectedCatwayId] = useState('');
@@ -23,7 +23,17 @@ function UpdateCatway(props) {
 
     const fetchData = async () => {
         try {
-            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/api/catways');
+            const token = sessionStorage.getItem('token');
+            if (!token) {
+                // Rediriger vers la page de connexion si le token n'est pas présent
+                window.location.href = '/AuthentificationCatwaysD';
+                return;
+            }
+            const response = await fetch('https://express-api-port-plaisance-russell.onrender.com/api/catways', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             const data = await response.json();
             setCatways(data);
         } catch (error) {
@@ -39,9 +49,16 @@ function UpdateCatway(props) {
         }
 
         try {
+            const token = sessionStorage.getItem('token');
+            if (!token) {
+                // Rediriger vers la page de connexion si le token n'est pas présent
+                window.location.href = '/AuthentificationCatwaysD';
+                return;
+            }
             await fetch(`https://express-api-port-plaisance-russell.onrender.com/api/catway/${selectedCatwayId}`, {
                 method: 'PUT',
                 headers: {
+                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(editedCatwayData),
@@ -50,7 +67,7 @@ function UpdateCatway(props) {
             setEditedCatwayData({ catwayNumber: '', catwayState: '', type: '' });
             setSelectedCatwayId('');
             setSelectedCatwayMessage('');
-            window.location.href = '/Dashboard';
+            window.location.href = '/Catways';
         } catch (error) {
             console.error('Error updating catway:', error);
         }
@@ -68,16 +85,27 @@ function UpdateCatway(props) {
             <h2>Modifier un catway</h2>
             <section className="section__connexion">
                 <Form onSubmit={updateCatway}>
+                    <Form.Group className="mb-3" controlId="formCatwayNumber">
+                        <Form.Label>Numéro de catway</Form.Label>
+                        <Form.Control type="text" placeholder="Entrez le nouveau numéro de catway" value={editedCatwayData.catwayNumber} onChange={(e) => setEditedCatwayData({ ...editedCatwayData, catwayNumber: e.target.value })} />
+                    </Form.Group>
+
                     <Form.Group className="mb-3" controlId="formCatwayState">
                         <Form.Label>État du catway</Form.Label>
-                        <Form.Control type="text" placeholder="Entrez l'état du catway" value={editedCatwayData.catwayState} onChange={(e) => setEditedCatwayData({ ...editedCatwayData, catwayState: e.target.value })} />
+                        <Form.Control type="text" placeholder="Entrez le nouvel état du catway" value={editedCatwayData.catwayState} onChange={(e) => setEditedCatwayData({ ...editedCatwayData, catwayState: e.target.value })} />
                     </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formCatwayType">
+                        <Form.Label>Type de catway</Form.Label>
+                        <Form.Control type="text" placeholder="Entrez le nouveau type de catway" value={editedCatwayData.type} onChange={(e) => setEditedCatwayData({ ...editedCatwayData, type: e.target.value })} />
+                    </Form.Group>
+
                     <Button variant="primary" type="submit">
                         Modifier le catway
                     </Button>
                     <section className="add__user_dah large">
-                        <Link to="/Catways">
-                            <button>Retour aux catways</button>
+                        <Link to="/Dashboard">
+                            <button>Retour au tableau de bord</button>
                         </Link>
                     </section>
 

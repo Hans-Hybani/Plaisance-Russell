@@ -88,7 +88,7 @@ const deleteUser = async (userId) => {
             });
     
             if (response.status === 201) {
-                console.log('done')
+                window.location.href = '/Catways';
             } else {
                 const data = await response.json();
                 setErrorMessageCat('Une erreur s\'est produite. Veuillez réessayer.');
@@ -138,7 +138,7 @@ const deleteUser = async (userId) => {
             });
     
             if (response.status === 201) {
-                console.log('done')
+                window.location.href = '/Reservations';
             } else {
                 const data = await response.json();
                 setErrorMessage('Une erreur s\'est produite. Veuillez réessayer.');
