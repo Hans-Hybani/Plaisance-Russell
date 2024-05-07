@@ -45,3 +45,47 @@
         text-decoration: none;
         background-color: #0d72f6;
 }
+.presentation{
+        display: flex;
+        justify-content: center;
+        padding: 5px;
+        width: 50%;
+}
+.section__documentation{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+}
+.section__documentation h3{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+}
+.documentation{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+}
+.liste_api{
+        display: flex;
+        justify-content: center;
+}
+.texte{
+        padding-left: 10px;
+}
+table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+        background-color: #f2f2f2;
+    }
